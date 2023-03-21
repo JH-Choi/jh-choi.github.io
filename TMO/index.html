@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Textured Mesh Acquisition of Objects with a Mobile Device by using Differentiable Rendering">
+  <meta name="keywords" content="NeRF, Reconstruction, Texturing">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>TMO: Textured Mesh Acquisition of Objects with a Mobile Device by using Differentiable Rendering</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!-- <link rel="icon" href="./static/images/favicon.svg"> -->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <link rel="stylesheet" href="./definitive-image-comparison-slider-master/src/dics.css">
+  <script src="./definitive-image-comparison-slider-master/src/dics.js"></script>
+	<script>
+    document.addEventListener('DOMContentLoaded', domReady);
+    function domReady() {
+      var b = document.querySelectorAll('.b-dics');
+      b.forEach(element => 
+        new Dics({
+          container: element,
+          textPosition: 'top'
+        })
+      );
+    }
+	</script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <a class="navbar-item" href="https://jh-choi.github.io">
+      <span class="icon">
+          <i class="fas fa-home"></i>
+      </span>
+      </a>
+
+      <!-- <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://jingsenzhu.github.io/invrend">
+            Learning-based Inverse Rendering
+          </a>
+        </div>
+      </div> -->
+    </div>
+
+  </div>
+</nav>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title" style="font-size:36px;">
+            <span style="color:crimson">I</span><span style="color:darkgoldenrod"><sup>2</sup></span>-<span style="color:darkblue">SDF</span>: 
+            <span style="color:crimson">I</span>ntrinsic <span style="color:darkgoldenrod">I</span>ndoor Scene Reconstruction and Editing via Raytracing in Neural <span style="color:darkblue">SDF</span>s
+          </h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block" style="font-size: 22px;">
+              <a href="https://jingsenzhu.github.io/">Jingsen Zhu</a><sup>1</sup>,
+            </span>
+            <span class="author-block" style="font-size: 22px;">
+              <a href="https://person.zju.edu.cn/en/yuchihuo/">Yuchi Huo</a><sup>2,1</sup>,
+            </span>
+            <span class="author-block" style="font-size: 22px;">
+              Qi Ye<sup>3,6</sup>,
+            </span>
+            <span class="author-block" style="font-size: 22px;">
+              <a href="https://luanfujun.github.io/">Fujun Luan</a><sup>4</sup>,
+            </span>
+            <span class="author-block" style="font-size: 22px;">
+              Jifan Li<sup>1</sup>,
+            </span>
+            <span class="author-block" style="font-size: 22px;">
+              Dianbing Xi<sup>1</sup>,
+            </span>
+            <span class="author-block" style="font-size: 22px;">
+              Lisha Wang<sup>1</sup>,
+            </span>
+            <span class="author-block" style="font-size: 22px;">
+              Rui Tang<sup>5</sup>,
+            </span>
+            <span class="author-block" style="font-size: 22px;">
+              Wei Hua<sup>2</sup>,
+            </span>
+            <span class="author-block" style="font-size: 22px;">
+              <a href="https://person.zju.edu.cn/en/0093140/">Hujun Bao</a><sup>1</sup>,
+            </span>
+            <span class="author-block" style="font-size: 22px;">
+              <a href="http://www.cad.zju.edu.cn/home/rwang/">Rui Wang</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block" style="font-size: 18px;"><sup>1</sup>State Key Lab of CAD&CG, Zhejiang University,</span>
+            <span class="author-block" style="font-size: 18px;"><sup>2</sup>Zhejiang Lab,</span>
+            <span class="author-block" style="font-size: 18px;"><sup>3</sup>Zhejiang University,</span>
+            <span class="author-block" style="font-size: 18px;"><sup>4</sup>Adobe Research,</span>
+            <span class="author-block" style="font-size: 18px;"><sup>5</sup>KooLab, Manycore</span>
+            <span class="author-block" style="font-size: 18px;"><sup>6</sup>Key Lab of CS&AUS of Zhejiang Province</span>
+          </div>
+          <!-- <div class="is-size-5 publication-authors">
+            <strong>CVPR 2023</strong>
+          </div> -->
+          <h2 style="font-size:24px;color:#6e6e6e">CVPR 2023</h2>
+
+          <div class="column has-text-centered">
+            <div class="link-block">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a href="https://arxiv.org/pdf/2303.07634"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2303.07634"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Supplementary</span>
+                </a>
+              </span> -->
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="https://github.com/jingsenzhu/i2-sdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <!-- Dataset Link. -->
+              <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data (Soon)</span>
+                </a>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <div class="columns is-centered has-text-centered">
+        <div class="column">
+          <div class="content">
+            <div class="b-dics" style="width: 400px;">
+              <img src="static/images/teaser/0c_mono.png" alt="MonoSDF" />
+              <img src="static/images/teaser/0c_ours.png" alt="Ours" />
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="content">
+            <div class="b-dics" style="width: 400px;">
+              <img src="static/images/teaser/0009_orig_filter.png" alt="Input" />
+              <img src="static/images/teaser/0009_relight_filter.png" alt="Relight" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="subtitle has-text-centered" style="font-size:16px;">
+        TL;DR: I<sup>2</sup>-SDF resolves challenges in reconstructing small objects inside an indoor scene by a novel bubble loss (Left), and leverages intrinsic decomposition and raytracing to enable photorealistic scene editing and relighting (Right).
+      </h2>
+    </div>
+  </div>
+</section>
+<section class="section">
+  <!-- Abstract. -->
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          In this work, we present I<sup>2</sup>-SDF, a new method for intrinsic indoor scene reconstruction and editing using differentiable Monte Carlo raytracing on neural signed distance fields (SDFs). Our holistic neural SDF-based framework jointly recovers the underlying shapes, incident radiance and materials from multi-view images. We introduce a novel bubble loss for fine-grained small objects and error-guided adaptive sampling scheme to largely improve the reconstruction quality on large-scale indoor scenes. Further, we propose to decompose the neural radiance field into spatially-varying material of the scene as a neural field through surface-based, differentiable Monte Carlo raytracing and emitter semantic segmentations, which enables physically based and photorealistic scene relighting and editing applications. Through a number of qualitative and quantitative experiments, we demonstrate the superior quality of our method on indoor scene reconstruction, novel view synthesis, and scene editing compared to state-of-the-art baselines.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+
+    <!-- Paper video. -->
+    <!-- <div class="columns is-centered has-text-centered" id="video">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <video id="video" controls playsinline height="100%">
+          <source src="static/videos/supplementary_video.mp4"
+                  type="video/mp4">
+        </video>
+      </div>
+    </div> -->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+<section class="section" id="geo">
+  <!-- Geometry. -->
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title">Geometry Reconstruction</h2>
+    <div class="container">
+      <div id="geo-carousel" class="carousel results-carousel">
+        <div class="item item-0">
+          <div class="b-dics">
+            <img src="static/images/geometry/0000_mono.png" alt="MonoSDF" />
+            <img src="static/images/geometry/0000.png" alt="Input" />
+            <img src="static/images/geometry/0000_ours.png" alt="Ours" />
+          </div>
+        </div>
+        <div class="item item-1">
+          <div class="b-dics">
+            <img src="static/images/geometry/0001_mono.png" alt="MonoSDF"/>
+            <img src="static/images/geometry/0001.png" alt="Input" />
+            <img src="static/images/geometry/0001_ours.png" alt="Ours" />
+          </div>
+        </div>
+        <div class="item item-2">
+          <div class="b-dics">
+            <img src="static/images/geometry/0028_mono.png" alt="MonoSDF"/>
+            <img src="static/images/geometry/0028.png" alt="Input" />
+            <img src="static/images/geometry/0028_ours.png" alt="Ours" />
+          </div>
+        </div>
+        <div class="item item-3">
+          <div class="b-dics">
+            <img src="static/images/geometry/0007_mono.png" alt="MonoSDF" />
+            <img src="static/images/geometry/0007.png" alt="Input" />
+            <img src="static/images/geometry/0007_ours.png" alt="Ours" />
+          </div>
+        </div>
+        <div class="item item-4">
+          <div class="b-dics">
+            <img src="static/images/geometry/0299_mono.png" alt="MonoSDF" />
+            <img src="static/images/geometry/0299.png" alt="Input" />
+            <img src="static/images/geometry/0299_ours.png" alt="Ours" />
+          </div>
+        </div>
+        <!-- <div class="item item-5">
+          <div class="b-dics">
+            <img src="static/images/geometry/0000_mono_real.png" alt="MonoSDF" />
+            <img src="static/images/geometry/0000_ours_real.png" alt="Ours" />
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <div class="content has-text-justified">
+      <br />
+      We analyze the <b>vanishing gradient</b> problem of SDF-based volume rendering techniques, which results in failures of existing methods to reconstruct off-surface small objects. We propose a novel <b>bubble loss</b> to tackle this.
+    </div>
+    <!--/ Geometry. -->
+  </div>
+</section>
+
+<section class="section" id="synthesis">
+  <!-- Synthesis. -->
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title">Novel View Synthesis</h2>
+    <div class="container">
+      <div id="novel-carousel" class="carousel results-carousel">
+        <div class="item item-0">
+          <div class="b-dics">
+            <img src="static/videos/novel/scan130_mono.gif" alt="MonoSDF"/>
+            <img src="static/videos/novel/scan130_ours.gif" alt="Ours" />
+            <img src="static/videos/novel/scan130_gt.gif" alt="GT" />
+          </div>
+        </div>
+        <div class="item item-3">
+          <div class="b-dics">
+            <img src="static/videos/novel/scan127_ngp.gif" alt="Instant-NGP"/>
+            <img src="static/videos/novel/scan127_ours.gif" alt="Ours" />
+            <img src="static/videos/novel/scan127_gt.gif" alt="GT" />
+          </div>
+        </div>
+        <div class="item item-1">
+          <div class="b-dics">
+            <img src="static/videos/novel/scan322_mono.gif" alt="MonoSDF"/>
+            <img src="static/videos/novel/scan322_ours.gif" alt="Ours" />
+          </div>
+        </div>
+        <div class="item item-2">
+          <div class="b-dics">
+            <img src="static/videos/novel/scan125_ngp.gif" alt="Instant-NGP"/>
+            <img src="static/videos/novel/scan125_ours.gif" alt="Ours" />
+          </div>
+        </div>
+        <div class="item item-4">
+          <div class="b-dics">
+            <img src="static/videos/novel/scan51_neuris.gif" alt="NeuRIS"/>
+            <img src="static/videos/novel/scan51_ours.gif" alt="Ours" />
+          </div>
+        </div>
+        <div class="item item-5">
+          <div class="b-dics">
+            <img src="static/videos/novel/scan31_nerf.gif" alt="NeRF"/>
+            <img src="static/videos/novel/scan31_ours.gif" alt="Ours" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content has-text-justified">
+      <br />
+      Our method outperforms previous methods in novel view synthesis of indoor scenes. Previous methods suffers from either reconstruction failure or overfitting.
+    </div>
+    <!--/ Synthesis. -->
+  </div>
+</section>
+
+<section class="section" id="edit">
+  <!-- Edit. -->
+  <div class="container is-max-desktop has-text-centered">
+    <h2 class="title">Editing and Relighting</h2>
+    <div class="container">
+      <div id="edit-carousel" class="carousel results-carousel">
+        <div class="item item-0">
+          <video autoplay muted loop playsinline poster controls>
+            <source src="static/videos/321_light.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-1">
+          <div class="b-dics">
+            <img src="static/images/edit/0159.png" alt="Input"/>
+            <img src="static/images/edit/0159_edit.png" alt="Edit" />
+          </div>
+        </div>
+        <div class="item item-2">
+          <div class="b-dics">
+            <img src="static/images/edit/0085.png" alt="Input"/>
+            <img src="static/images/edit/0085_edit.png" alt="Edit #1" />
+            <img src="static/images/edit/0085_metal.png" alt="Edit #2" />
+          </div>
+        </div>
+        <div class="item item-3">
+          <div class="b-dics">
+            <img src="static/images/edit/0047.png" alt="Input"/>
+            <img src="static/images/edit/0047_edit.png" alt="Edit" />
+          </div>
+        </div>
+        <div class="item item-4">
+          <div class="b-dics">
+            <img src="static/images/edit/0043.png" alt="Input"/>
+            <img src="static/images/edit/0043_edit.png" alt="Relight" />
+          </div>
+        </div>
+        <div class="item item-5">
+          <div class="b-dics">
+            <img src="static/images/edit/0110.png" alt="Input"/>
+            <img src="static/images/edit/0110_edit.png" alt="Edit" />
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="content has-text-justified">
+      <br />
+      We disentangle material (physically-based BRDF) and lighting (direct emission and indirect illumination) to enable photorealistic scene editing and relighting using Monte-Carlo raytracing.
+    </div>
+    <!--/ Edit. -->
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@inproceedings{zhu2023i2sdf,
+    title = {I$^2$-SDF: Intrinsic Indoor Scene Reconstruction and Editing via Raytracing in Neural SDFs},
+    author = {Jingsen Zhu and Yuchi Huo and Qi Ye and Fujun Luan and Jifan Li and Dianbing Xi and Lisha Wang and Rui Tang and Wei Hua and Hujun Bao and Rui Wang},
+    booktitle = {CVPR},
+    year = {2023}
+}</code></pre>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+      <a class="icon-link"
+         href="https://arxiv.org/pdf/2303.07634">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/jingsenzhu/" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            Thanks to <a
+              href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> for their excellent website templates.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  bulmaCarousel.attach('#geo-carousel', {
+    slidesToScroll: 1,
+    slidesToShow: 2,
+    infinite: true
+  });
+  bulmaCarousel.attach('#novel-carousel', {
+    slidesToScroll: 1,
+    slidesToShow: 2,
+    infinite: true
+  });
+  bulmaCarousel.attach('#edit-carousel', {
+    slidesToScroll: 1,
+    slidesToShow: 2,
+    infinite: true
+  });
+</script>
+
+</body>
+</html>
