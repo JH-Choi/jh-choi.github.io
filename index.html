@@ -57,6 +57,41 @@
             <td style="padding:20px;width:25%;vertical-align:middle">
               <div class="one">
                 <div class="two" id='lssr_image'>
+                  <img src='image/UAV_Sim.png' width="160"></div>
+                <img src='image/UAV_Sim.png' width="160">
+              </div>
+              <script type="text/javascript">
+                function lssr_start() {
+                  document.getElementById('lssr_image').style.opacity = "1";
+                }
+
+                function lssr_stop() {
+                  document.getElementById('lssr_image').style.opacity = "0";
+                }
+                lssr_stop()
+              </script>
+            </td>
+            <td style="padding:20px;width:75%;vertical-align:middle">
+             <a href="https://arxiv.org/abs/2310.16255">
+              <papertitle>UAV-Sim: NeRF-based Synthetic Data Generation for UAV-based Perception</papertitle>
+             </a>
+              <br>
+              Christopher Maxey*, <strong>Jaehoon Choi*</strong>, Hyungtae Lee, Dinesh Manocha, Heesung Kwon
+              <br>
+              <br>
+              <a href="https://arxiv.org/abs/2310.16255">arXiv</a>    
+              <br>
+              <p></p>
+              <p>
+                We present a synthetic data generation pipeline based on NeRF for UAV-based perception
+              </p>
+            </td>
+          </tr> 
+          
+          <tr onmouseout="lssr_stop()" onmouseover="lssr_start()">
+            <td style="padding:20px;width:25%;vertical-align:middle">
+              <div class="one">
+                <div class="two" id='lssr_image'>
                   <img src='image/TMO.png' width="160"></div>
                 <img src='image/TMO.png' width="160">
               </div>
